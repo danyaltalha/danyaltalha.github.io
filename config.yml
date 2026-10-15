@@ -1,0 +1,98 @@
+backend:
+  name: github
+  repo: danyaltalha/danyaltalha.github.io          # change
+  branch: main
+  base_url: https://https://sveltia-cms-auth.danyal-talha-531.workers.dev/   # your OAuth proxy (setup step 4)
+  auth_endpoint: auth
+local_backend: true            # only used when you run it on localhost
+publish_mode: editorial_workflow   # drafts -> review -> publish (pull requests)
+media_folder: assets/uploads
+public_folder: /assets/uploads
+collections:
+  - name: projects
+    label: Projects
+    label_singular: Project
+    folder: _projects
+    extension: md
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    fields:
+      - {label: Title, name: title, widget: string}
+      - {label: Summary, name: summary, widget: text}
+      - {label: Date, name: date, widget: datetime}
+      - {label: Featured, name: featured, widget: boolean, default: false}
+      - {label: Cover image, name: cover, widget: image, required: false}
+      - {label: Tags, name: tags, widget: list, required: false}
+      - label: Technical specifications
+        name: specs
+        widget: list
+        required: false
+        fields: [{label: Label, name: label, widget: string}, {label: Value, name: value, widget: string}]
+      - {label: Overview, name: body, widget: markdown}
+      - label: Design iterations
+        name: iterations
+        widget: list
+        required: false
+        fields:
+          - {label: Title, name: title, widget: string}
+          - {label: Image, name: image, widget: image, required: false}
+          - {label: Notes, name: notes, widget: text}
+      - {label: Results, name: results, widget: markdown, required: false}
+      - label: Image gallery
+        name: gallery
+        widget: list
+        required: false
+        fields: [{label: Image, name: image, widget: image}, {label: Caption, name: caption, widget: string, required: false}]
+  - name: posts
+    label: Blog and research
+    label_singular: Post
+    folder: _posts
+    extension: md
+    create: true
+    delete: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: Title, name: title, widget: string}
+      - {label: Date, name: date, widget: datetime}
+      - {label: Type, name: type, widget: select, options: [Blog, Research update], default: Blog}
+      - {label: Excerpt, name: excerpt, widget: text}
+      - {label: Body, name: body, widget: markdown}
+  - name: settings
+    label: Site settings
+    files:
+      - label: Bio, skills, CV and links
+        name: site
+        file: _data/site.yml
+        fields:
+          - {label: Name, name: name, widget: string}
+          - {label: Role, name: role, widget: string}
+          - {label: Tagline, name: tagline, widget: string}
+          - {label: Photo, name: photo, widget: image, required: false}
+          - {label: CV (PDF), name: cv, widget: file, required: false}
+          - {label: Bio, name: bio, widget: markdown, buttons: [bold, italic, link, bulleted-list]}
+          - label: Skills
+            name: skills
+            widget: list
+            fields: [{label: Group, name: group, widget: string}, {label: Items, name: items, widget: list}]
+          - label: Links
+            name: links
+            widget: list
+            fields: [{label: Label, name: label, widget: string}, {label: URL, name: url, widget: string}]
+          - {label: Formspree form ID, name: formspree_id, widget: string, required: false}
+      - label: Project order (drag to reorder)
+        name: order
+        file: _data/project_order.yml
+        fields:
+          - label: Projects
+            name: projects
+            widget: list
+            field: {label: Project, name: project, widget: relation, collection: projects, search_fields: [title], value_field: "{{slug}}", display_fields: [title]}
+      - label: Photo gallery
+        name: gallery
+        file: _data/gallery.yml
+        fields:
+          - label: Images
+            name: images
+            widget: list
+            fields: [{label: Image, name: image, widget: image}, {label: Caption, name: caption, widget: string, required: false}]
