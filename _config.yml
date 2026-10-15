@@ -1,0 +1,14 @@
+title: Danyal Talha
+description: Portfolio
+url: "https://danyaltalha.github.io"   # change USERNAME
+baseurl: ""                         # keep empty when the repo is named USERNAME.github.io
+markdown: kramdown
+permalink: /blog/:title/
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+defaults:
+  - {scope: {path: "", type: projects}, values: {layout: project}}
+  - {scope: {path: "", type: posts}, values: {layout: post}}
+exclude: [README.md, Gemfile, Gemfile.lock, vendor]

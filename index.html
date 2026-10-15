@@ -1,0 +1,26 @@
+---
+layout: default
+---
+{% assign d = site.data.site %}
+<section class="hero"><p class="role">{{ d.role }}</p><h1>{{ d.tagline }}</h1>
+<p><a class="btn" href="#projects">See the work</a>{% if d.cv != "" and d.cv %}<a class="btn ghost" href="{{ d.cv | relative_url }}">Download CV</a>{% endif %}</p><div class="ruler"></div></section>
+<section id="about" class="wrap about">{% if d.photo != "" and d.photo %}<img class="me" src="{{ d.photo | relative_url }}" alt="{{ d.name }}">{% endif %}
+<div><h2>About</h2>{{ d.bio | markdownify }}{% for g in d.skills %}<h4>{{ g.group }}</h4><p class="chips">{% for s in g.items %}<span>{{ s }}</span>{% endfor %}</p>{% endfor %}</div></section>
+<section id="projects" class="wrap"><h2>Projects</h2><div class="grid">
+{% assign order = site.data.project_order.projects %}
+{% for s in order %}{% assign p = site.projects | where: "slug", s | first %}{% if p %}{% include card.html p=p %}{% endif %}{% endfor %}
+{% for p in site.projects %}{% unless order contains p.slug %}{% include card.html p=p %}{% endunless %}{% endfor %}
+</div></section>
+<section id="writing" class="wrap"><h2>Writing and research</h2><div class="posts">
+{% for p in site.posts limit:8 %}<a href="{{ p.url | relative_url }}"><span><b>{{ p.title }}</b><br>{{ p.excerpt | strip_html | truncate: 120 }}</span><small>{{ p.type }}, {{ p.date | date: "%b %Y" }}</small></a>{% endfor %}
+</div></section>
+{% if site.data.gallery.images.size > 0 %}<section id="gallery" class="wrap"><h2>Gallery</h2><div class="gal">
+{% for g in site.data.gallery.images %}<img src="{{ g.image | relative_url }}" alt="{{ g.caption }}" loading="lazy">{% endfor %}</div></section>{% endif %}
+<section id="contact" class="wrap"><h2>Contact</h2>
+<form data-ajax action="https://formspree.io/f/{{ d.formspree_id }}" method="POST">
+<input name="name" placeholder="Name" aria-label="Name" required>
+<input type="email" name="email" placeholder="Email" aria-label="Email" required>
+<textarea name="message" rows="5" placeholder="Message" aria-label="Message" required></textarea>
+<input name="_gotcha" tabindex="-1" autocomplete="off" style="display:none">
+<button class="btn">Send message</button><span class="st" role="status"></span></form>
+<p class="links">{% for l in d.links %}<a href="{{ l.url }}">{{ l.label }}</a>{% endfor %}</p></section>

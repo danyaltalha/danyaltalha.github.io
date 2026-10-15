@@ -1,0 +1,6 @@
+{% assign p = include.p %}
+<a class="card{% if p.featured %} feat{% endif %}" href="{{ p.url | relative_url }}">
+  {% if p.cover %}<img src="{{ p.cover | relative_url }}" alt="" loading="lazy">{% endif %}
+  <div class="body"><h3>{{ p.title }}</h3><p>{{ p.summary }}</p></div>
+  <div class="tb"><span>{% if p.featured %}Featured{% else %}Project{% endif %}</span><span>{{ p.date | date: "%b %Y" }}</span><span>{{ p.tags | join: ", " }}</span></div>
+</a>

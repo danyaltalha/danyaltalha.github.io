@@ -1,0 +1,13 @@
+name: Your Name
+role: Engineer
+tagline: I design, build and test things that move.
+photo: ""
+cv: ""
+formspree_id: ""
+bio: |
+  Write your bio in the CMS under Site settings.
+skills:
+  - group: Design
+    items: [CAD, Prototyping]
+links:
+  - {label: GitHub, url: "https://github.com/USERNAME"}
