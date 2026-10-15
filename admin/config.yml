@@ -2,7 +2,7 @@ backend:
   name: github
   repo: danyaltalha/danyaltalha.github.io          # change
   branch: main
-  base_url: https://YOUR-WORKER.YOUR-SUBDOMAIN.workers.dev   # your OAuth proxy (setup step 4)
+  base_url: https://https://sveltia-cms-auth.danyal-talha-531.workers.dev/   # your OAuth proxy (setup step 4)
   auth_endpoint: auth
 local_backend: true            # only used when you run it on localhost
 publish_mode: editorial_workflow   # drafts -> review -> publish (pull requests)
